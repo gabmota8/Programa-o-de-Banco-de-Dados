@@ -1,0 +1,87 @@
+1. HR_JOB_HISTORY
+PK (Primary Key):
+EMPLOYEE_ID: Número identificador único do empregado.
+START_DATE: Data de início de um trabalho específico.
+Colunas:
+END_DATE: Data de término do trabalho.
+JOB_ID: Identificador do trabalho desempenhado.
+DEPARTMENT_ID: Identificador do departamento onde o trabalho foi realizado.
+Relações (Foreign Keys):
+JHIST_EMP_ID_FK (EMPLOYEE_ID): Relacionado à tabela HR_EMPLOYEES (campo EMPLOYEE_ID).
+JHIST_JOB_FK (JOB_ID): Relacionado à tabela HR_JOBS (campo JOB_ID).
+JHIST_DEPARTMENT_FK (DEPARTMENT_ID): Relacionado à tabela HR_DEPARTMENTS (campo DEPARTMENT_ID).
+
+
+2. HR_JOBS
+PK (Primary Key):
+JOB_ID: Identificador único do trabalho.
+Colunas:
+JOB_TITLE: Título do trabalho.
+MIN_SALARY: Salário mínimo permitido para o trabalho.
+MAX_SALARY: Salário máximo permitido para o trabalho.
+Relações:
+JOB_ID_PK: Chave primária que pode estar referenciada em outras tabelas, como HR_JOB_HISTORY e HR_EMPLOYEES.
+3. HR_EMPLOYEES
+PK (Primary Key):
+EMPLOYEE_ID: Identificador único do empregado.
+Colunas:
+FIRST_NAME: Nome do empregado.
+LAST_NAME: Sobrenome do empregado.
+EMAIL: Endereço de e-mail do empregado.
+PHONE_NUMBER: Número de telefone do empregado.
+HIRE_DATE: Data de contratação.
+JOB_ID: Identificador do trabalho que o empregado realiza.
+SALARY: Salário do empregado.
+COMMISSION_PCT: Percentual de comissão.
+MANAGER_ID: Identificador do gerente do empregado.
+DEPARTMENT_ID: Identificador do departamento em que o empregado trabalha.
+Relações (Foreign Keys):
+EMP_DEPT_FK (DEPARTMENT_ID): Relacionado à tabela HR_DEPARTMENTS.
+EMP_JOB_FK (JOB_ID): Relacionado à tabela HR_JOBS.
+EMP_MANAGER_FK (MANAGER_ID): Relacionado a HR_EMPLOYEES (referenciando o gerente do empregado).
+Referências:
+EMP_EMAIL_UK (EMAIL): Possível restrição de unicidade para o campo EMAIL.
+EMP_DEPARTMENT_IX (DEPARTMENT_ID): Índice possivelmente usado para otimização de consultas pelo campo DEPARTMENT_ID.
+4. HR_DEPARTMENTS
+PK (Primary Key):
+DEPARTMENT_ID: Identificador único do departamento.
+Colunas:
+DEPARTMENT_NAME: Nome do departamento.
+MANAGER_ID: Identificador do gerente do departamento.
+LOCATION_ID: Identificador da localização do departamento.
+Relações (Foreign Keys):
+DEPT_LOC_FK (LOCATION_ID): Relacionado à tabela HR_LOCATIONS.
+DEPT_MGR_FK (MANAGER_ID): Relacionado à tabela HR_EMPLOYEES.
+5. HR_LOCATIONS
+PK (Primary Key):
+LOCATION_ID: Identificador único da localização.
+Colunas:
+STREET_ADDRESS: Endereço da localização.
+POSTAL_CODE: Código postal.
+CITY: Cidade onde a localização está.
+STATE_PROVINCE: Estado ou província onde a localização está.
+COUNTRY_ID: Identificador do país.
+Relações (Foreign Keys):
+LOC_C_ID_FK (COUNTRY_ID): Relacionado à tabela HR_COUNTRIES.
+6. HR_COUNTRIES
+PK (Primary Key):
+COUNTRY_ID: Identificador único do país.
+Colunas:
+COUNTRY_NAME: Nome do país.
+REGION_ID: Identificador da região.
+Relações (Foreign Keys):
+COUNTRY_REG_FK (REGION_ID): Relacionado à tabela HR_REGIONS.
+7. HR_REGIONS
+PK (Primary Key):
+REGION_ID: Identificador único da região.
+Colunas:
+REGION_NAME: Nome da região.
+Resumo Geral das Relações
+A tabela HR_JOB_HISTORY está relacionada com HR_EMPLOYEES, HR_JOBS, e HR_DEPARTMENTS.
+A tabela HR_EMPLOYEES está diretamente relacionada com HR_DEPARTMENTS, HR_JOBS, e a si mesma (para gerentes).
+HR_DEPARTMENTS tem uma relação com HR_LOCATIONS.
+HR_LOCATIONS está relacionada com HR_COUNTRIES.
+HR_COUNTRIES está relacionada com HR_REGIONS.
+Esse modelo representa um banco de dados típico de uma empresa, onde empregados são organizados em departamentos,
+que estão localizados em diferentes localidades, em vários países e regiões. O diagrama mostra as chaves primárias
+e estrangeiras que conectam as tabelas e estabelecem a integridade referencial dos dados.
